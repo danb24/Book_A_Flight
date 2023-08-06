@@ -1,136 +1,47 @@
-/* Box-sizing rules */
-html {
-    box-sizing: border-box;
-  }
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
-  
-  /* Text size adjustments */
-  html {
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-  }
-  
-  /* Remove default body margin */
-  body {
+body {
     margin: 0;
-  }
-  
-  /* Normalize font and line-height for the whole document */
-  html, body {
-    font-family: Verdana, sans-serif;
-    font-size: 15px;
-    line-height: 1.5;
-    overflow-x: hidden;
-  }
-  
-  /* Headings */
-  h1 {
-    font-size: 36px;
-  }
-  h2 {
-    font-size: 30px;
-  }
-  h3 {
-    font-size: 24px;
-  }
-  h4 {
-    font-size: 20px;
-  }
-  h5 {
-    font-size: 18px;
-  }
-  h6 {
-    font-size: 16px;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: "Segoe UI", Arial, sans-serif;
-    font-weight: 400;
-    margin: 10px 0;
-  }
-  
-  /* Additional heading styles can be placed here */
-  
-  /* Common font families */
-  .w3-serif {
-    font-family: serif;
-  }
-  .w3-sans-serif {
-    font-family: sans-serif;
-  }
-  .w3-cursive {
-    font-family: cursive;
-  }
-  .w3-monospace {
-    font-family: monospace;
-  }
-  
-  /* Buttons */
-  .w3-btn, .w3-button {
+    padding: 0;
+    background-color:lightgreen  ;
+    background-size: auto;   
+ }
+ #logo {
+  margin-bottom: 50px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+
+ }
+ .container{
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+ }
+ .card{
+    padding: 50px 40px 50px 40px;
+    background: rgb(255, 254, 254);
+    border-radius: 10px;
+ }
+ #customerID {
     border: none;
-    display: inline-block;
-    padding: 8px 16px;
-    vertical-align: middle;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    background-color: inherit;
-    text-align: center;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  
-  /* Button hover effect */
-  .w3-btn:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  }
-  
-  /* Additional button styles can be placed here */
-  
-  /* Tables */
-  .w3-table, .w3-table-all {
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-    display: table;
-  }
-  
-  /* Add border to all sides of the table */
-  .w3-table-all {
-    border: 1px solid #ccc;
-  }
-  
-  /* Additional table styles can be placed here */
-  
-  /* Form input */
-  .w3-input {
-    padding: 8px;
-    display: block;
+    background: transparent;
+    border-bottom: 1px solid rgb(6, 6, 6);
+    padding: 10px;
+    margin-bottom: 15px;
+ }
+ #password{
+   border: none;
+   background: transparent;
+   border-bottom: 1px solid rgb(6, 6, 6);
+   padding: 10px;
+   margin-bottom: 15px;
+ }
+ #button {
+    border-radius: 20px;
+    padding: 10px 20px;
+    background: dodgerblue;
+    color: white;
+    margin-top: 10px;
     border: none;
-    border-bottom: 1px solid #ccc;
-    width: 100%;
-  }
-  
-  /* Additional input styles can be placed here */
-  
-  /* Dropdown */
-  .w3-dropdown-click, .w3-dropdown-hover {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-  }
-  
-  /* Additional dropdown styles can be placed here */
-  
-  /* Additional utility classes can be placed here */
-  
-  /* Colors */
-  /* ... (color classes and hover styles) ... */
-  
-  /* Text Colors */
-  /* ... (text color classes and hover styles) ... */
-  
-  /* Border Colors */
-  /* ... (border color classes and hover styles) ... */
-  
+    outline: none;
+ }
