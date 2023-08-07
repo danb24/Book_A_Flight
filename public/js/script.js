@@ -7,4 +7,10 @@ const fetchFunction = (html) => {
 
 }
 
-// html -> file name
+async function fetchFlights(){
+    const respone = await fetch ('/flights')
+    const data = await respone.json();
+    console.log(data);
+
+    
+}
