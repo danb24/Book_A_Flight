@@ -25,8 +25,7 @@ async function run() {
 }
 
 
-
-const tlvflight = async () => {
+const tlvflight = async (destination) => {
     const client = new MongoClient(uri,{useUnifiedTopology: true});
 
     try{
@@ -34,7 +33,7 @@ const tlvflight = async () => {
         console.log('connect');
         const database = client.db('flight_project');
         const collection = database.collection('flights');
-        const flights = await collection.find({from:'TLV'}).toArray();
+        const flights = await collection.find().toArray();
         console.log(flights);
         return flights;
     } catch (error) {
@@ -42,9 +41,12 @@ const tlvflight = async () => {
         throw new Error ('faild');
     } finally {
         await client.close();
-
     }
 };
+
+module.exports={
+  tlvflight
+}
 
 
 run().catch(console.dir);
