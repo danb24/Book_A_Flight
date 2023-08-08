@@ -2,7 +2,7 @@
 <div id="body">
 		<div id="tagline">
 			<h1>find flight</h1>
-			<form>
+			<form> 
 			<label for="departDate">Depart Date:</label>
 			<input type="date" name="departDate" id="departDate">
 			<label for="returnDate">Return Date:</label>
@@ -11,12 +11,29 @@
 			<input type="text" name="destination" id="destination">
 			<label for="tickets">Number of Tickets:</label>
 			<input type="number" name="tickets" id="tickets">
-			<input type="submit" value="Check Flights">
+			<input type="submit" value="submit" id="button" onclick="fetchFlights()">
 			</form>
 		</div>
 </div>
 
 <div id="body">
 	<h1> test </h1>
+	<input type="text" id="from" placeholder="from">
+	<input type="text" id="dest" placeholder="dest">
+	<button onclick="filterFlights()">Filter flights</button>
 	<button onclick="fetchFlights()">Show flights</button>
+	<table class='my-table'>
+		<thead>
+			<tr>
+				<th>flight_number</th>
+				<th>from</th>
+				<th>dest</th>
+				<th>date</th>
+				<th>price</th>
+				<th>company</th>
+			</tr>
+		</thead>
+		<tbody id="flightlist">
+		</tbody>
+	</table>
 </div>
