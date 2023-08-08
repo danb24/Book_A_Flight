@@ -24,8 +24,7 @@ async function run() {
   }
 }
 
-
-const tlvflight = async (destination) => {
+const allflights = async () => {
     const client = new MongoClient(uri,{useUnifiedTopology: true});
 
     try{
@@ -45,9 +44,7 @@ const tlvflight = async (destination) => {
 };
 
 module.exports={
-  tlvflight
+  allflights
 }
 
-
 run().catch(console.dir);
-tlvflight()
