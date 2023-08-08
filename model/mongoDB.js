@@ -43,8 +43,28 @@ const allflights = async () => {
     }
 };
 
+//query to fine if the user is in the database 
+const login = async (username,password) => {
+  const client = new MongoClient(uri,{useUnifiedTopology: true});
+
+  try{
+      await client.connect();
+      console.log('connect');
+      const database = client.db('flight_project');
+      const collection = database.collection('users');
+      const user = await collection.find({username:username,password:password}).toArray();
+      console.log(user);
+      return user;
+  } catch (error) {
+      console.error('error');
+      throw new Error ('faild');
+  } finally {
+      await client.close();
+  }
+};
+
 module.exports={
-  allflights
+  allflights,login
 }
 
 run().catch(console.dir);
