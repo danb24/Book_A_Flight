@@ -1,10 +1,12 @@
 const express = require('express')
 const { MongoClient } = require('mongodb');
+const bodyParser = require('body-parser');
 const app = express()
 const port = 3000
 app.use(express.static('public')) 
-const {allflights,login,filterFlightsByCriteria}= require('./model/mongoDB')
+app.use(bodyParser.urlencoded({ extended: true }));
 
+const {allflights,login,filterFlightsByCriteria}= require('./model/mongoDB')
 const uri = "mongodb+srv://danuri240595:HSTYlseQRW5ddR42@cluster0.4glz4l5.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
@@ -43,5 +45,21 @@ app.get('/flights', async (req, res) => {
     // Handle viewing all flights
     const flights = await allflights();
     res.json(flights);
+  }
+});
+
+
+
+app.post('/login', async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  const loggedIn = await login(username, password);
+
+  if (loggedIn) {
+    // The user exists, so redirect them to the home page.
+    res.redirect('/client.html');
+  } else {
+    // The user does not exist, so show an error message.
+    res.send('<h1>Error</h1><p>The username or password is incorrect.</p>');
   }
 });
