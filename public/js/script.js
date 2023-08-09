@@ -51,3 +51,25 @@ async function filterFlights() {
     
     flightlist.innerHTML = flight;
 }
+
+
+
+const loginForm = document.getElementById('loginForm');
+
+loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent default form submission
+  
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+  
+    // Call your login function here, passing username and password
+    const loggedIn = await login(username, password);
+  
+    if (loggedIn) {
+      // Redirect to the home page
+      true
+    } else {
+      // Handle failed login (e.g., display an error message)
+      console.error('Login failed');
+    }
+});
