@@ -1,4 +1,3 @@
-
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://danuri240595:HSTYlseQRW5ddR42@cluster0.4glz4l5.mongodb.net/?retryWrites=true&w=majority";
 
@@ -63,8 +62,36 @@ const login = async (username,password) => {
   }
 };
 
-module.exports={
-  allflights,login
+const filterFlightsByCriteria = async (from, dest) => {
+const client = new MongoClient(uri, { useUnifiedTopology: true });
+
+  try {
+    console.log('Connecting to the database...');
+    await client.connect();
+    console.log('Connected to the database.');
+    const database = client.db('flight_project');
+    const flightsCollection = database.collection('flights');
+    const filter = {};
+    if (from) filter.from = from;
+    if (dest) filter.dest = dest;
+
+    console.log('Filter:', filter);
+    const flights = await flightsCollection.find(filter).toArray();
+    console.log('Filtered Flights:', flights);
+
+    return flights;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to fetch filtered flights.');
+  } finally {
+    await client.close();
+    console.log('Database connection closed.');
+  }
 }
+
+module.exports={
+  allflights,login,filterFlightsByCriteria
+}
+
 
 run().catch(console.dir);
