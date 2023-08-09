@@ -55,8 +55,11 @@ app.post('/login', async (req, res) => {
   const password = req.body.password;
   const loggedIn = await login(username, password);
 
-  if (loggedIn) {
-    // The user exists, so redirect them to the home page.
+  if (loggedIn === 1) {
+    // User role is "manager," redirect to manager page
+    res.redirect('/manager.html');
+  } else if (loggedIn === 2) {
+    // User role is "customer," redirect to customer page
     res.redirect('/client.html');
   } else {
     // The user does not exist, so show an error message.
