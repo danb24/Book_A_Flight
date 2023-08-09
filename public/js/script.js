@@ -27,28 +27,27 @@ async function fetchFlights(){
 }
 
 
-
-
-
-
 async function filterFlights() {
     const from = document.getElementById('from').value;
     const dest = document.getElementById('dest').value;
 
-    const response = await fetch('/flights?from=' + from + '&dest=' + dest);
+    const response = await fetch(`/flights?from=${from}&dest=${dest}`);
     const data = await response.json();
-    const flightList = document.getElementById('flightlist');
-    flightList.innerHTML = ``
-    let filtered = ''
+    const flightlist = document.getElementById('flightlist');
+    flightlist.innerHTML = '';
+    let flight = '';
 
-    data.forEach((flights) =>{
-        filtered +=`<tr>
-    <td>${flights.flight_number}</td>
-    <td>${flights.from}</td>
-    <td>${flights.dest}</td>
-    <td>${flights.date}</td>
-    <td>${flights.price}</td>
-    <td>${flights.company}</td>
-    <tr>`})
-    flightList.innerHTML=filtered;
+    data.forEach((flights) => {
+        flight += `
+            <tr>
+                <td>${flights.flight_number}</td>
+                <td>${flights.from}</td>
+                <td>${flights.dest}</td>
+                <td>${flights.date}</td>
+                <td>${flights.price}</td>
+                <td>${flights.company}</td>
+            </tr>`;
+    });
+    
+    flightlist.innerHTML = flight;
 }
