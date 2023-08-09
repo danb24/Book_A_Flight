@@ -51,9 +51,16 @@ const login = async (username,password) => {
       console.log('connect');
       const database = client.db('flight_project');
       const collection = database.collection('users');
-      const user = await collection.find({username:username,password:password}).toArray();
-      console.log(user);
-      return user.length > 0;
+      const user = await collection.findOne({ username: username, password: password });
+
+    if (user) {
+      // Check the role of the user and return corresponding value
+      if (user.role === 'manager') {
+        return 1;
+      } else if (user.role === 'customer') {
+        return 2;
+      }
+    }
   } catch (error) {
       console.error('error');
       throw new Error ('faild');
