@@ -53,7 +53,7 @@ const login = async (username,password) => {
       const collection = database.collection('users');
       const user = await collection.find({username:username,password:password}).toArray();
       console.log(user);
-      return user;
+      return user.length > 0;
   } catch (error) {
       console.error('error');
       throw new Error ('faild');
