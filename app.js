@@ -4,11 +4,9 @@ const bodyParser = require('body-parser');
 const app = express()
 const port = 3000
 app.use(express.static('public')) 
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-
-
-const {allflights,login,filterFlightsByCriteria, insertFlight}= require('./model/mongoDB')
+const {allflights,login,filterFlightsByCriteria,insertFlight}= require('./model/mongoDB')
 const uri = "mongodb+srv://danuri240595:HSTYlseQRW5ddR42@cluster0.4glz4l5.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
@@ -50,7 +48,6 @@ app.get('/flights', async (req, res) => {
   }
 });
 
-
 app.post('/flights', async (req, res) => {
   console.log('req.body', req.body)
   const {flight_number, from, dest, date, price,
@@ -62,8 +59,6 @@ app.post('/flights', async (req, res) => {
     }
     else{res.status(400).json({message: "Inserted not sucessfully"})}
 })
-
-
 
 app.post('/login', async (req, res) => {
   const username = req.body.username;
@@ -79,5 +74,27 @@ app.post('/login', async (req, res) => {
   } else {
     // The user does not exist, so show an error message.
     res.send('<h1>Error</h1><p>The username or password is incorrect.</p>');
+  }
+});
+
+
+app.post('/insertflight', async (req, res) => {
+  const flight_number = req.body.flight_number;
+  const from = req.body.from;
+  const dest = req.body.dest;
+  const date = req.body.date;
+  const price = req.body.price;
+  const company = req.body.company;
+  
+  try {
+    // Call your insertFlight function here
+    await insertFlight(flight_number, from, dest, date, price, company);
+    
+    // Flight insertion successful, send a success response
+    res.status(201).send('Flight inserted successfully');
+  } catch (error) {
+    // Flight insertion failed, send an error response
+    console.error('Flight insertion error:', error);
+    res.status(500).send('Failed to insert flight');
   }
 });
