@@ -42,7 +42,6 @@ const allflights = async () => {
     }
 };
 
-//query to fine if the user is in the database 
 const login = async (username,password) => {
   const client = new MongoClient(uri,{useUnifiedTopology: true});
 
@@ -56,8 +55,10 @@ const login = async (username,password) => {
     if (user) {
       // Check the role of the user and return corresponding value
       if (user.role === 'manager') {
+        console.log('manager')
         return 1;
       } else if (user.role === 'customer') {
+        console.log('customer')
         return 2;
       }
     }
@@ -96,9 +97,129 @@ const client = new MongoClient(uri, { useUnifiedTopology: true });
   }
 }
 
-module.exports={
-  allflights,login,filterFlightsByCriteria
+
+const createUser = async (id, username, password, role, phone, first_name, last_name) => {
+  const database = client.db('flight_project');
+  const collection = database.collection('users');
+
+  // Check if username and id are unique
+  const existingUser = await collection.findOne({ $or: [{ username: username }, { id: id }] });
+  if (existingUser) {
+    throw new Error('Username or ID already exists');
+  }
+
+  // Create a new user document
+  const newUser = {
+    id: id,
+    username: username,
+    password: password,
+    role: role,
+    phone: phone,
+    first_name: first_name,
+    last_name: last_name
+  };
+
+  // Insert the new user document
+  try {
+    const result = await collection.insertOne(newUser);
+    console.log('User inserted:', result.insertedId);
+    return result.insertedId;
+  } catch (error) {
+    console.error('Error inserting user:', error);
+    throw new Error('Failed to insert user');
+  }
+};
+
+const deleteUser = async (username, id) => {
+  const database = client.db('flight_project');
+  const collection = database.collection('users');
+
+  // Delete the user based on the combination of username and id
+  try {
+    const result = await collection.deleteOne({ username: username, id: id });
+    if (result.deletedCount === 1) {
+      console.log('User deleted:', username);
+      return true; // User deleted successfully
+    } else {
+      console.log('User not found:', username);
+      return false; // User not found
+    }
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    throw new Error('Failed to delete user');
+  }
+};
+
+
+const getAllReviews = async () => {
+  const database = client.db('flight_project');
+  const collection = database.collection('reviews');
+
+  try {
+    const reviews = await collection.find().toArray();
+    console.log('All reviews fetched:', reviews);
+    return reviews;
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    throw new Error('Failed to fetch reviews');
+  }
+};
+
+async function insertReview(destination, description, rating, commenter) {
+  try {
+    const database = client.db('flight_project');
+    const collection = database.collection('reviews');
+
+    const newReview = {
+      destination: destination,
+      description: description,
+      rating: rating,
+      commenter: commenter
+    };
+
+    const result = await collection.insertOne(newReview);
+    console.log('Inserted review with ID:', result.insertedId);
+  } catch (error) {
+    console.error('Error inserting review:', error);
+  }
 }
 
+const insertFlight = async (flight_number, from, dest, date, price,
+  company) => {
+    try {
 
-run().catch(console.dir);
+      console.log('Connected to the database');
+      console.log(flight_number, from, dest, date, price, company)
+      await client.connect()
+      const database = await client.db('flight_project');
+      const collection = await database.collection('flights');
+  
+      // Create a new flight document
+      const newFlight = {
+        flight_number: flight_number,
+        from: from,
+        dest: dest,
+        date: date,
+        price: price,
+        company: company
+      };
+  
+      // Insert the new flight document
+      const result = await collection.insertOne(newFlight);
+      console.log('Inserted flight:', result.insertedId);
+  
+      return {result:result.insertedId, IsSuccess:true};
+    } catch (error) {
+      console.error('Error:', error);
+      return {IsSuccess:false}
+
+    }
+  };
+  
+
+// Example usage
+
+
+module.exports={
+  allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight
+}
