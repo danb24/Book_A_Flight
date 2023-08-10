@@ -1,23 +1,25 @@
 <div id="body">
-    <form action="insert_flight.php" method="post">
-        <label for="flight_number">Flight Number:</label>
-        <input type="text" name="flight_number" id="flight_number">
-        <br>
-        <label for="depart_date">Depart Date:</label>
-        <input type="date" name="depart_date" id="depart_date">
-        <br>
-        <label for="from">From:</label>
-        <input type="text" name="from" id="from">
-        <br>
-        <label for="destination">Destination:</label>
-        <input type="text" name="destination" id="destination">
-        <br>
-        <label for="price">Price:</label>
-        <input type="number" name="price" id="price">
-        <br>
-        <label for="company">Company:</label>
-        <input type="text" name="company" id="company">
-        <br>
-        <input type="submit" value="Submit">
-        </form>
+  <form onsubmit="addFlight(event)"
+      <label for="flight_number">Flight Number:</label>
+      <input type="text" name="flight_number" id="flight_number">
+      <br>
+      <label for="depart_date">Depart Date:</label>
+      <input type="date" name="depart_date" id="depart_date">
+      <br>
+      <label for="from">From:</label>
+      <input type="text" name="from" id="from">
+      <br>
+      <label for="destination">Destination:</label>
+      <input type="text" name="destination" id="destination">
+      <br>
+      <label for="price">Price:</label>
+      <input type="number" name="price" id="price">
+      <br>
+      <label for="company">Company:</label>
+      <input type="text" name="company" id="company">
+      <br>
+      <input type="submit" value="Submit">
+      </form>
+
+      <div id="message">  </div>
 </div>
