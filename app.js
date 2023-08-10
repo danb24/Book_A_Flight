@@ -5,6 +5,7 @@ const app = express()
 const port = 3000
 app.use(express.static('public')) 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const {allflights,login,filterFlightsByCriteria,insertFlight}= require('./model/mongoDB')
 const uri = "mongodb+srv://danuri240595:HSTYlseQRW5ddR42@cluster0.4glz4l5.mongodb.net/?retryWrites=true&w=majority";
@@ -19,12 +20,7 @@ async function connectToMongo() {
     console.error('Failed to connect to MongoDB:', error);
   }
 }
-
 connectToMongo();
-
-app.post('/', (req, res) => {
-  res.send('')
-})
 
 app.listen(port, () => {
   console.log(`listening on http://localhost:${port}`)
@@ -48,18 +44,7 @@ app.get('/flights', async (req, res) => {
   }
 });
 
-app.post('/flights', async (req, res) => {
-  console.log('req.body', req.body)
-  const {flight_number, from, dest, date, price,
-    company} = req.body
-    const {IsSuccess} = await insertFlight(flight_number, from, dest, date, price,
-    company) 
-    if (IsSuccess) {
-      res.status(200).json({message: "Inserted sucessfully"})
-    }
-    else{res.status(400).json({message: "Inserted not sucessfully"})}
-})
-
+// check users login
 app.post('/login', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -77,24 +62,15 @@ app.post('/login', async (req, res) => {
   }
 });
 
-
-app.post('/insertflight', async (req, res) => {
-  const flight_number = req.body.flight_number;
-  const from = req.body.from;
-  const dest = req.body.dest;
-  const date = req.body.date;
-  const price = req.body.price;
-  const company = req.body.company;
-  
-  try {
-    // Call your insertFlight function here
-    await insertFlight(flight_number, from, dest, date, price, company);
-    
-    // Flight insertion successful, send a success response
-    res.status(201).send('Flight inserted successfully');
-  } catch (error) {
-    // Flight insertion failed, send an error response
-    console.error('Flight insertion error:', error);
-    res.status(500).send('Failed to insert flight');
-  }
-});
+// add 
+app.post('/flights', async (req, res) => {
+  console.log('req.body', req.body)
+  const {flight_number, from, dest, date, price,
+    company} = req.body
+    const {IsSuccess} = await insertFlight(flight_number, from, dest, date, price,
+    company) 
+    if (IsSuccess) {
+      res.status(200).json({message: "Inserted sucessfully"})
+    }
+    else{res.status(400).json({message: "Inserted not sucessfully"})}
+})
