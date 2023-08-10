@@ -73,3 +73,56 @@ loginForm.addEventListener('submit', async (event) => {
       console.error('Login failed');
     }
 });
+
+
+
+
+
+
+// flight_number
+// depart_date
+// from
+// destination
+// price
+// company
+
+
+
+
+
+
+async function addFlight(event){
+    event.preventDefault()
+    const flight_number=document.getElementById('flight_number').value
+    const depart_date=document.getElementById('depart_date').value
+    const from=document.getElementById('from').value
+    const destination=document.getElementById('destination').value
+    const price=document.getElementById('price').value
+    const company=document.getElementById('company').value
+    console.log('flight_number', flight_number)
+    console.log('depart_date', depart_date)
+    console.log('from', from)
+    console.log('destination', destination)
+    console.log('price', price)
+    console.log('company', company)
+    const newflight = {flight_number, date:depart_date, from, dest:destination, price, company}
+    const respone = await fetch ('/flights', {
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newflight),
+
+    })
+    const data = await respone.json();
+    console.log('data', data)
+    if (data==="Inserted sucessfully") {document.getElementById('message').innerText=data.message}
+    else {
+        document.getElementById('message').innerText=data.message
+    }
+    
+
+
+
+
+}
