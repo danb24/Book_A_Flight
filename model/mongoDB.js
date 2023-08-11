@@ -23,25 +23,7 @@ async function run() {
   }
 }
 
-const allflights = async () => {
-    const client = new MongoClient(uri,{useUnifiedTopology: true});
-
-    try{
-        await client.connect();
-        console.log('connect');
-        const database = client.db('flight_project');
-        const collection = database.collection('flights');
-        const flights = await collection.find().toArray();
-        console.log(flights);
-        return flights;
-    } catch (error) {
-        console.error('error');
-        throw new Error ('faild');
-    } finally {
-        await client.close();
-    }
-};
-
+// check login
 const login = async (username,password) => {
   const client = new MongoClient(uri,{useUnifiedTopology: true});
 
@@ -70,6 +52,30 @@ const login = async (username,password) => {
   }
 };
 
+//flights querys ==>
+
+// get all flights avalibale 
+const allflights = async () => {
+    const client = new MongoClient(uri,{useUnifiedTopology: true});
+
+    try{
+        await client.connect();
+        console.log('connect');
+        const database = client.db('flight_project');
+        const collection = database.collection('flights');
+        const flights = await collection.find().toArray();
+        console.log(flights);
+        return flights;
+    } catch (error) {
+        console.error('error');
+        throw new Error ('faild');
+    } finally {
+        await client.close();
+    }
+};
+
+
+// qery for filtering flights 
 const filterFlightsByCriteria = async (from, dest) => {
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
@@ -97,7 +103,9 @@ const client = new MongoClient(uri, { useUnifiedTopology: true });
   }
 }
 
+// manager querys ==>
 
+//  creating new user in the system 
 const createUser = async (id, username, password, role, phone, first_name, last_name) => {
   const database = client.db('flight_project');
   const collection = database.collection('users');
@@ -130,6 +138,7 @@ const createUser = async (id, username, password, role, phone, first_name, last_
   }
 };
 
+// manager only : deleating new user in the system 
 const deleteUser = async (username, id) => {
   const database = client.db('flight_project');
   const collection = database.collection('users');
@@ -150,40 +159,7 @@ const deleteUser = async (username, id) => {
   }
 };
 
-
-const getAllReviews = async () => {
-  const database = client.db('flight_project');
-  const collection = database.collection('reviews');
-
-  try {
-    const reviews = await collection.find().toArray();
-    console.log('All reviews fetched:', reviews);
-    return reviews;
-  } catch (error) {
-    console.error('Error fetching reviews:', error);
-    throw new Error('Failed to fetch reviews');
-  }
-};
-
-async function insertReview(destination, description, rating, commenter) {
-  try {
-    const database = client.db('flight_project');
-    const collection = database.collection('reviews');
-
-    const newReview = {
-      destination: destination,
-      description: description,
-      rating: rating,
-      commenter: commenter
-    };
-
-    const result = await collection.insertOne(newReview);
-    console.log('Inserted review with ID:', result.insertedId);
-  } catch (error) {
-    console.error('Error inserting review:', error);
-  }
-}
-
+// manager only: Add new flight
 const insertFlight = async (flight_number, from, dest, date, price,
   company) => {
     try {
@@ -215,11 +191,72 @@ const insertFlight = async (flight_number, from, dest, date, price,
 
     }
   };
+
+  // Reviews querys ==>
+
+// get All Reviews
+const getAllReviews = async () => {
+  const database = client.db('flight_project');
+  const collection = database.collection('reviews');
+
+  try {
+    const reviews = await collection.find().toArray();
+    console.log('All reviews fetched:', reviews);
+    return reviews;
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    throw new Error('Failed to fetch reviews');
+  }
+};
+
+// Add new Review
+async function insertReview(destination, description, rating, commenter) {
+  try {
+    const database = client.db('flight_project');
+    const collection = database.collection('reviews');
+
+    const newReview = {
+      destination: destination,
+      description: description,
+      rating: rating,
+      commenter: commenter
+    };
+
+    const result = await collection.insertOne(newReview);
+    console.log('Inserted review with ID:', result.insertedId);
+  } catch (error) {
+    console.error('Error inserting review:', error);
+  }
+}
+
+// filter reviwes 
+const filterreviewsByCriteria = async (destination) => {
+  const client = new MongoClient(uri, { useUnifiedTopology: true });
   
+    try {
+      console.log('Connecting to the database...');
+      await client.connect();
+      console.log('Connected to the database.');
+      const database = client.db('flight_project');
+      const reviewsCollection = database.collection('reviews');
+      const filter = {};
+      if (destination) filter.destination = destination;
+  
+      console.log('Filter:', filter);
+      const reviews = await reviewsCollection.find(filter).toArray();
+      console.log('Filtered reviews:', reviews);
+  
+      return reviews;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to fetch filtered reviews.');
+    } finally {
+      await client.close();
+      console.log('Database connection closed.');
+    }
+  }
 
-// Example usage
-
-
+// exporting querys to use on app.js
 module.exports={
-  allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight
+  run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria
 }
