@@ -7,6 +7,7 @@ const fetchFunction = (html) => {
 
 }
 
+// show user all the flights
 async function fetchFlights(){
     const respone = await fetch ('/flights')
     const data = await respone.json();
@@ -26,7 +27,7 @@ async function fetchFlights(){
     flightlist.innerHTML=flight;
 }
 
-
+// show user all the flights baesd on the filter he puts
 async function filterFlights() {
     const from = document.getElementById('from').value;
     const dest = document.getElementById('dest').value;
@@ -52,7 +53,7 @@ async function filterFlights() {
     flightlist.innerHTML = flight;
 }
 
-
+// the login suposed pass to check if user is in the system before rendering to app.js ---> dosent work fo now
 
 const loginForm = document.getElementById('loginForm');
 
@@ -74,23 +75,7 @@ loginForm.addEventListener('submit', async (event) => {
     }
 });
 
-
-
-
-
-
-// flight_number
-// depart_date
-// from
-// destination
-// price
-// company
-
-
-
-
-
-
+// adding flights by the manager
 async function addFlight(event){
     event.preventDefault()
     const flight_number=document.getElementById('flight_number').value
@@ -120,9 +105,42 @@ async function addFlight(event){
     else {
         document.getElementById('message').innerText=data.message
     }
-    
+}
 
+// get all reviews
+async function fetchreviews(){
+    const respone = await fetch ('/reviews')
+    const data = await respone.json();
+    const reviewslist = document.getElementById('reviewslist')
+    reviewslist.innerHTML=``
+    let review = ''
 
+    data.forEach((reviews) =>{
+        review +=`<tr>
+    <td>${reviews.destination}</td>
+    <td>${reviews.description}</td>
+    <td>${reviews.rating}</td>
+    <td>${reviews.commenter}</td>
+    <tr>`})
+    reviewslist.innerHTML=review;
+}
 
+//filter review
+async function filterreviews() {
+    const destination = document.getElementById('destination').value;
+    const response = await fetch(`/reviews?destination=${destination}`);
+    const data = await response.json();
+    const reviewslist = document.getElementById('reviewslist');
+    reviewslist.innerHTML = ''
+    let review = ''
 
+    data.forEach((reviews) => {
+        review += `
+        <tr>
+            <td>${reviews.destination}</td>
+            <td>${reviews.description}</td>
+            <td>${reviews.rating}</td>
+            <td>${reviews.commenter}</td>
+        </tr>`})
+    reviewslist.innerHTML=review;
 }
