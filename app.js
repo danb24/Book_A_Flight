@@ -7,7 +7,7 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const {allflights,login,filterFlightsByCriteria,insertFlight}= require('./model/mongoDB')
+const {allflights,login,filterFlightsByCriteria,insertFlight, getAllReviews,filterreviewsByCriteria}= require('./model/mongoDB')
 const uri = "mongodb+srv://danuri240595:HSTYlseQRW5ddR42@cluster0.4glz4l5.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
@@ -26,7 +26,7 @@ app.listen(port, () => {
   console.log(`listening on http://localhost:${port}`)
 })
 
-
+// routing for the flights queries 
 app.get('/flights', async (req, res) => {
   const from = req.query.from;
   const dest = req.query.dest;
@@ -62,7 +62,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// add 
+// add flight
 app.post('/flights', async (req, res) => {
   console.log('req.body', req.body)
   const {flight_number, from, dest, date, price,
@@ -74,3 +74,20 @@ app.post('/flights', async (req, res) => {
     }
     else{res.status(400).json({message: "Inserted not sucessfully"})}
 })
+
+// routing for the reviews queries
+app.get('/reviews', async (req, res) => {
+  const destination = req.query.destination;
+  const database = client.db('flight_project');
+  const collection = database.collection('reviews');
+
+  if (destination) {
+    // Handle filtering flights
+    const reviews = await filterreviewsByCriteria(destination, collection);
+    res.json(reviews);
+  } else {
+    // Handle viewing all flights
+    const reviews = await getAllReviews();
+    res.json(reviews);
+  }
+});
