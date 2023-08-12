@@ -107,6 +107,53 @@ async function addFlight(event){
     }
 }
 
+// add user by manager 
+async function adduser(event) {
+    event.preventDefault();
+    const id = document.getElementById('id').value;
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const role = document.getElementById('role').value;
+    const phone = document.getElementById('phone').value;
+    const Email = document.getElementById('Email').value;
+    const first_name = document.getElementById('first_name').value;
+    const last_name = document.getElementById('last_name').value;
+    const newuser = {id, username, password, role, phone, Email, first_name, last_name};
+    const respone = await fetch('/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newuser)
+        })
+    const data = await respone.json();
+    console.log('data', data)
+    if (data==="Inserted sucessfully") {document.getElementById('message').innerText=data.message}
+    else {
+        document.getElementById('message').innerText=data.message
+    }
+}
+// delete user by manager
+async function deleteuser(event) {
+    event.preventDefault();
+    const username = document.getElementById('username-delete').value;
+    const id = document.getElementById('id-delete').value;
+    const deleteuser = {username,id};
+    const respone = await fetch('/users', {
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(deleteuser)
+        })
+    const data = await respone.json();
+    console.log('data', data)
+    if (data==="deleted sucessfully") {document.getElementById('message').innerText=data.message}
+    else {
+        document.getElementById('message').innerText=data.message
+    }
+}
+
 // get all reviews
 async function fetchreviews(){
     const respone = await fetch ('/reviews')
