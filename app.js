@@ -91,3 +91,14 @@ app.get('/reviews', async (req, res) => {
     res.json(reviews);
   }
 });
+
+// routing add review
+app.post('/reviews', async (req, res) => {
+  console.log('req.body', req.body)
+  const {destinationR, description, rating, commenter } = req.body
+    const {IsSuccess} = await insertReview(destinationR, description, rating, commenter) 
+    if (IsSuccess) {
+      res.status(200).json({message: "Inserted sucessfully"})
+    }
+    else{res.status(400).json({message: "Inserted not sucessfully"})}
+})
