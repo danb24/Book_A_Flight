@@ -105,38 +105,38 @@ const client = new MongoClient(uri, { useUnifiedTopology: true });
 
 // manager querys ==>
 
-//  creating new user in the system 
-const createUser = async (id, username, password, role, phone, first_name, last_name) => {
-  const database = client.db('flight_project');
-  const collection = database.collection('users');
-
-  // Check if username and id are unique
-  const existingUser = await collection.findOne({ $or: [{ username: username }, { id: id }] });
-  if (existingUser) {
-    throw new Error('Username or ID already exists');
-  }
-
-  // Create a new user document
-  const newUser = {
-    id: id,
-    username: username,
-    password: password,
-    role: role,
-    phone: phone,
-    first_name: first_name,
-    last_name: last_name
+//  creating new user in the system
+const createUser = async (id, username, password, role, phone,
+  first_name, last_name) => {
+    await client.connect()
+    const database = client.db('flight_project');
+    const collection = database.collection('users');
+    // Check if username and id are unique
+    const existingUser = await collection.findOne({ $or: [{ username:
+  username }, { id: id }] });
+    if (existingUser) {
+      throw new Error('Username or ID already exists');
+    }
+    // Create a new user document
+    const newUser = {
+      id: id,
+      username: username,
+      password: password,
+      role: role,
+      phone: phone,
+      first_name: first_name,
+      last_name: last_name
+    };
+    // Insert the new user document
+    try {
+      const result = await collection.insertOne(newUser);
+      console.log('User inserted:', result.insertedId);
+      return {result:result.insertedId, IsSuccess:true};
+    } catch (error) {
+      console.error('Error inserting user:', error);
+      return {IsSuccess:false}
+    }
   };
-
-  // Insert the new user document
-  try {
-    const result = await collection.insertOne(newUser);
-    console.log('User inserted:', result.insertedId);
-    return result.insertedId;
-  } catch (error) {
-    console.error('Error inserting user:', error);
-    throw new Error('Failed to insert user');
-  }
-};
 
 // manager only : deleating new user in the system 
 const deleteUser = async (username, id) => {
@@ -148,14 +148,14 @@ const deleteUser = async (username, id) => {
     const result = await collection.deleteOne({ username: username, id: id });
     if (result.deletedCount === 1) {
       console.log('User deleted:', username);
-      return true; // User deleted successfully
+      return {result:result.deletedId, IsSuccess:true}; // User deleted successfully
     } else {
       console.log('User not found:', username);
-      return false; // User not found
+      return true ; // User not found
     }
   } catch (error) {
     console.error('Error deleting user:', error);
-    throw new Error('Failed to delete user');
+    return {IsSuccess:false};
   }
 };
 
@@ -231,7 +231,6 @@ async function insertReview(destination, description, rating, commenter) {
     return {IsSuccess:false}
   }
 }
-
 
 // filter reviwes 
 const filterreviewsByCriteria = async (destination) => {
