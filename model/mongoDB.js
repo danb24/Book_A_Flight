@@ -212,6 +212,7 @@ const getAllReviews = async () => {
 // Add new Review
 async function insertReview(destination, description, rating, commenter) {
   try {
+    await client.connect()
     const database = client.db('flight_project');
     const collection = database.collection('reviews');
 
@@ -224,10 +225,13 @@ async function insertReview(destination, description, rating, commenter) {
 
     const result = await collection.insertOne(newReview);
     console.log('Inserted review with ID:', result.insertedId);
+    return {result:result.insertedId, IsSuccess:true};
   } catch (error) {
     console.error('Error inserting review:', error);
+    return {IsSuccess:false}
   }
 }
+
 
 // filter reviwes 
 const filterreviewsByCriteria = async (destination) => {
