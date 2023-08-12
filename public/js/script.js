@@ -144,3 +144,31 @@ async function filterreviews() {
         </tr>`})
     reviewslist.innerHTML=review;
 }
+
+// add review
+async function addreview(event){
+    event.preventDefault()
+    const destinationR =document.getElementById('destinationR').value
+    const description=document.getElementById('description').value
+    const rating=document.getElementById('rating').value
+    const commenter = document.getElementById('commenter').value
+    console.log('destinationR', destinationR)
+    console.log('description', description)
+    console.log('rating', rating)
+    console.log('commenter', commenter)
+    const newReview = { destinationR, description, rating, commenter}
+    const respone = await fetch ('/reviews', {
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newReview),
+
+    })
+    const data = await respone.json();
+    console.log('data', data)
+    if (data === "Inserted sucessfully") {document.getElementById('message').innerText=data.message}
+    else {
+        document.getElementById('message').innerText=data.message
+    }
+}
