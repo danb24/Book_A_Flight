@@ -7,7 +7,7 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const {allflights,login,filterFlightsByCriteria,insertFlight, getAllReviews,filterreviewsByCriteria}= require('./model/mongoDB')
+const {allflights,login,filterFlightsByCriteria,insertFlight, getAllReviews,filterreviewsByCriteria,insertReview,createUser,deleteUser}= require('./model/mongoDB')
 const uri = "mongodb+srv://danuri240595:HSTYlseQRW5ddR42@cluster0.4glz4l5.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
@@ -44,6 +44,7 @@ app.get('/flights', async (req, res) => {
   }
 });
 
+
 // check users login
 app.post('/login', async (req, res) => {
   const username = req.body.username;
@@ -62,6 +63,28 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// add new user
+app.post('/users', async (req, res) => {
+  console.log('req.body', req.body)
+  const {id, username, password, role, phone, Email, first_name, last_name} = req.body
+    const {IsSuccess} = await createUser(id, username, password, role, phone,Email, first_name, last_name)
+    if (IsSuccess) {
+      res.status(200).json({message: "Inserted sucessfully"})
+    }
+    else{res.status(400).json({message: "Inserted not sucessfully"})}
+})
+
+//delete user
+app.delete('/users', async (req, res) => {
+  console.log('req.body', req.body)
+  const {username,id} = req.body
+    const {IsSuccess} = await deleteUser(username,id)
+    if (IsSuccess) {
+      res.status(200).json({message: "deleted sucessfully"})
+    }
+    else{res.status(400).json({message: "deleted not sucessfully"})}
+})
+
 // add flight
 app.post('/flights', async (req, res) => {
   console.log('req.body', req.body)
@@ -74,6 +97,7 @@ app.post('/flights', async (req, res) => {
     }
     else{res.status(400).json({message: "Inserted not sucessfully"})}
 })
+
 
 // routing for the reviews queries
 app.get('/reviews', async (req, res) => {
