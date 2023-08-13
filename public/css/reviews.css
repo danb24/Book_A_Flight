@@ -9,53 +9,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   
 }
-.Rform{
-    width: 300px;
-    height: 430px;
-    background: #5384d9d4 ;
-    box-shadow: 0 0 20px 0;
-    border-radius: 10px;
-    margin-top: 80px;
-    right: 65%;
-    position:static;
-    padding: 10px;
-    direction:ltr;
 
-  }
-  #destinationR,
-  #rating,
-  #commenter {
-    width: 220px;
-    height: 20px;
-    margin-top: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 15px;
-    font: bold sans-serif;
-    direction: ltr;
-    outline: none;
-    font-size: 1.2em;
-  }
-  #description{
-    height: 30px;
-    width: 235px;
-    padding-top: 10px;
-    border-radius: 10px;
-  }
-  
-  #sbutton {
-    border-radius: 20px;
-    padding: 10px 20px;
-    background: rgb(9, 1, 125);
-    color: rgb(238, 242, 238);
-    margin-top: 10px;
-    border: none;
-    outline: none;
-  }
-  #form-h1{
-    font-size:30px; font-weight:300; color:#000000; letter-spacing:1px;
-    display:block;
-  }
 #destination{
     width:fit-content;
     border-radius: 10px;
