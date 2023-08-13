@@ -192,6 +192,36 @@ const insertFlight = async (flight_number, from, dest, date, price,
     }
   };
 
+// add new discaount
+const createCoupon = async (discount, couponcode, coupon_description) => {
+  try {
+    await client.connect();
+    const database = client.db('flight_project');
+    const collection = database.collection('coupons');
+
+    // Check if couponCode is already used
+    const existingCoupon = await collection.findOne({ couponcode: couponcode });
+    if (existingCoupon) {
+      console.error('Coupon code already exists');
+      return { IsSuccess: false };
+    }
+
+    // Create a new coupon document
+    const newCoupon = {
+      discount: discount,
+      couponcode: couponcode,
+      coupon_description: coupon_description
+    };
+
+    // Insert the new coupon document
+    const result = await collection.insertOne(newCoupon);
+    console.log('Coupon inserted successfully');
+    return { result: result.insertedId, IsSuccess: true };
+  } catch (error) {
+    console.error('Error inserting coupon:', error);
+    return { IsSuccess: false };
+  }
+};
   // Reviews querys ==>
 
 // get All Reviews
@@ -261,5 +291,5 @@ const filterreviewsByCriteria = async (destination) => {
 
 // exporting querys to use on app.js
 module.exports={
-  run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria
+  run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria,createCoupon
 }
