@@ -1,13 +1,14 @@
+<link rel="stylesheet" type="text/css" href="css/reviews.css">
 <div id="body">
     <h1>ADD NEW DISCOUNT COUPON: </h1>
-    <form class="coupons">
+    <form class="coupons" onsubmit="createcoupons(event)">
         <label for="discount">Discount:</label>
         <input type="text" name="discount" id="discount"><br>
         <label for="couponcode">Coupon code:</label>
         <input type="text" name="couponcode" id="coupon-code"><br>
         <label for="coupon_description">Description:</label>
         <input type="text" name="coupon_description" id="coupon_description" maxlength="35"><br>
-        <input type="submit" value="Submit" onsubmit="adddiscount(event)"><br>
+        <input type="submit" value="Submit"><br>
     </form>
     <div id="message"> </div>
 </div>
