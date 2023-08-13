@@ -126,3 +126,14 @@ app.post('/reviews', async (req, res) => {
     }
     else{res.status(400).json({message: "Inserted not sucessfully"})}
 })
+
+// routing to createCoupon
+app.post('/coupons', async (req, res) => {
+  console.log('req.body', req.body)
+  const {discount, couponcode, coupon_description } = req.body
+    const {IsSuccess} = await createCoupon(discount, couponcode, coupon_description) 
+    if (IsSuccess) {
+      res.status(200).json({message: "Inserted coupon sucessfully"})
+    }
+    else{res.status(400).json({message: "Inserted not sucessfully"})}
+})
