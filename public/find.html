@@ -1,13 +1,14 @@
 <div id="body">
-	<h1> test </h1>
+	<div class="h1style">
+		<h1> where would you like to travel? </h1>
+	</div>
 	<input type="text" id="from" placeholder="from">
-	<input type="text" id="dest" placeholder="dest">
-	<button onclick="filterFlights()">Filter flights</button>
-	<button onclick="fetchFlights()">Show flights</button>
-	<table class='my-table'>
-		<thead>
+	<input type="text" id="dest" placeholder="destination">
+	<button onclick="filterFlights()" id="filterFlights">search flights</button>
+	<table class='flights-table'>
+		<thead id="heads">
 			<tr>
-				<th>flight_number</th>
+				<th>flight number</th>
 				<th>from</th>
 				<th>dest</th>
 				<th>date</th>
