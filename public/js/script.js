@@ -154,6 +154,28 @@ async function deleteuser(event) {
     }
 }
 
+// add discount by manager 
+async function createcoupons(event) {
+    event.preventDefault();
+    const discount = document.getElementById('discount').value;
+    const couponcode = document.getElementById('coupon-code').value;
+    const coupon_description = document.getElementById('coupon_description').value;
+    const newdiscount = {discount, couponcode, coupon_description};
+    const respone = await fetch('/coupons', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newdiscount)
+        })
+    const data = await respone.json();
+    console.log('data', data)
+    if (data==="Inserted discount sucessfully") {document.getElementById('message').innerText=data.message}
+    else {
+        document.getElementById('message').innerText=data.message
+    }
+}
+
 // get all reviews
 async function fetchreviews(){
     const respone = await fetch ('/reviews')
