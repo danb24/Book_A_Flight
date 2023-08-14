@@ -312,4 +312,3 @@ const filterreviewsByCriteria = async (destination) => {
 module.exports={
   run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria,createCoupon,allcoupons
 }
-
