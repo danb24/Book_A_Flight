@@ -289,7 +289,27 @@ const filterreviewsByCriteria = async (destination) => {
     }
   }
 
+  const allcoupons = async () => {
+  const client = new MongoClient(uri,{useUnifiedTopology: true});
+
+  try{
+      await client.connect();
+      console.log('connect');
+      const database = client.db('flight_project');
+      const collection = database.collection('coupons');
+      const coupons = await collection.find().toArray();
+      console.log(coupons);
+      return coupons;
+  } catch (error) {
+      console.error('error');
+      throw new Error ('faild');
+  } finally {
+      await client.close();
+  }
+};
+
 // exporting querys to use on app.js
 module.exports={
-  run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria,createCoupon
+  run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria,createCoupon,allcoupons
 }
+
