@@ -53,27 +53,6 @@ async function filterFlights() {
     flightlist.innerHTML = flight;
 }
 
-// the login suposed pass to check if user is in the system before rendering to app.js ---> dosent work fo now
-
-const loginForm = document.getElementById('loginForm');
-
-loginForm.addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevent default form submission
-  
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-  
-    // Call your login function here, passing username and password
-    const loggedIn = await login(username, password);
-  
-    if (loggedIn) {
-      // Redirect to the home page
-      true
-    } else {
-      // Handle failed login (e.g., display an error message)
-      console.error('Login failed');
-    }
-});
 
 // adding flights by the manager
 async function addFlight(event){
@@ -240,4 +219,34 @@ async function addreview(event){
     else {
         document.getElementById('message').innerText=data.message
     }
+}
+
+//make fetchCoupon run onload
+document.addEventListener('DOMContentLoaded', () => {
+    fetchCoupon();
+});
+//watch coupon
+async function fetchCoupon() {
+    console.log('fetchCoupon function called');
+    const response = await fetch('/coupons');
+    const data = await response.json();
+    const couponlist = document.getElementById('couponlist');
+    couponlist.innerHTML = '';
+
+    data.forEach((coupons) => {
+        const cube = document.createElement('div');
+        cube.classList.add('coupon-cube');
+
+        const couponDetails = document.createElement('div');
+        couponDetails.classList.add('coupon-details');
+        console.log('1')
+        couponDetails.innerHTML = `
+            <div>discount: ${coupons.discount}</div>
+            <div>couponcode: ${coupons.couponcode}</div>
+            <div>coupon_description: ${coupons.coupon_description}</div>
+        `;
+
+        cube.appendChild(couponDetails);
+        couponlist.appendChild(cube);
+    });
 }
