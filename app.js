@@ -7,7 +7,7 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const {allflights,login,filterFlightsByCriteria,insertFlight, getAllReviews,filterreviewsByCriteria,insertReview,createUser,deleteUser,createCoupon,allcoupons}= require('./model/mongoDB')
+const {allflights,login,filterFlightsByCriteria,insertFlight, getAllReviews,filterreviewsByCriteria,insertReview,createUser,deleteUser,createCoupon,allcoupons, deleteCoupon}= require('./model/mongoDB')
 const uri = "mongodb+srv://danuri240595:HSTYlseQRW5ddR42@cluster0.4glz4l5.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
