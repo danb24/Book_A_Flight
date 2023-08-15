@@ -250,3 +250,24 @@ async function fetchCoupon() {
         couponlist.appendChild(cube);
     });
 }
+
+
+//deleteCoupon
+async function deleteCoupons(event) {
+    event.preventDefault();
+    const couponcodediscard = document.getElementById('coupon-code-discard').value;
+    const deleteCoupon = {couponcodediscard};
+    const respone = await fetch('/coupons', {
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(deleteCoupon)
+        })
+    const data = await respone.json();
+    console.log('data', data)
+    if (data==="deleted sucessfully") {document.getElementById('message-discard').innerText=data.message}
+    else {
+        document.getElementById('message-discard').innerText=data.message
+    }
+}
