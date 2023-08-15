@@ -308,7 +308,40 @@ const filterreviewsByCriteria = async (destination) => {
   }
 };
 
+const deleteCoupon = async (couponcode) => {
+    try {
+      await client.connect();
+      const database = client.db('flight_project');
+      const collection = database.collection('coupons');
+  
+      // Find the coupon to delete
+      const couponToDelete = await collection.findOne({ couponcode: couponcode });
+      if (!couponToDelete) {
+        console.error('Coupon code not found');
+        return { IsSuccess: false };
+      }
+  
+      // Delete the coupon document
+      const deleteResult = await collection.deleteOne({ couponcode: couponcode });
+  
+      if (deleteResult.deletedCount === 1) {
+        console.log('Coupon deleted successfully');
+        return { IsSuccess: true };
+      } else {
+        console.error('Coupon deletion failed');
+        return { IsSuccess: false };
+      }
+    } catch (error) {
+      console.error('Error deleting coupon:', error);
+      return { IsSuccess: false };
+    } finally {
+      // Close the client connection
+      await client.close();
+    }
+  };
+
+
 // exporting querys to use on app.js
 module.exports={
-  run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria,createCoupon,allcoupons
+  run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria,createCoupon,allcoupons, deleteCoupon
 }
