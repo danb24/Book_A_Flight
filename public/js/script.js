@@ -133,28 +133,6 @@ async function deleteuser(event) {
     }
 }
 
-// add discount by manager 
-async function createcoupons(event) {
-    event.preventDefault();
-    const discount = document.getElementById('discount').value;
-    const couponcode = document.getElementById('coupon-code').value;
-    const coupon_description = document.getElementById('coupon_description').value;
-    const newdiscount = {discount, couponcode, coupon_description};
-    const respone = await fetch('/coupons', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newdiscount)
-        })
-    const data = await respone.json();
-    console.log('data', data)
-    if (data==="Inserted discount sucessfully") {document.getElementById('message').innerText=data.message}
-    else {
-        document.getElementById('message').innerText=data.message
-    }
-}
-
 // get all reviews
 async function fetchreviews(){
     const respone = await fetch ('/reviews')
@@ -218,6 +196,43 @@ async function addreview(event){
     if (data === "Inserted sucessfully") {document.getElementById('message').innerText=data.message}
     else {
         document.getElementById('message').innerText=data.message
+    }
+}
+
+// add discount by manager 
+async function createcoupons(event) {
+    event.preventDefault();
+    const discount = document.getElementById('discount').value;
+    const couponcode = document.getElementById('coupon-code').value;
+    const coupon_description = document.getElementById('coupon_description').value;
+    const newdiscount = {discount, couponcode, coupon_description};
+    const respone = await fetch('/coupons', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newdiscount)
+        })
+    const data = await respone.json();
+    console.log('data', data)
+    if (data==="Inserted discount sucessfully") {document.getElementById('message').innerText=data.message}
+    else {
+        document.getElementById('message').innerText=data.message
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Call a function to set up the event listeners
+    setupEventListeners();
+});
+
+function setupEventListeners() {
+    // Event listener for Discounts link
+    const discountsLink = document.querySelector('#navigation li:nth-child(2) a');
+    if (discountsLink) {
+        discountsLink.addEventListener('click', () => {
+            fetchCoupon();
+        });
     }
 }
 
