@@ -146,3 +146,13 @@ app.get('/coupons', async (req, res) => {
   const coupons = await allcoupons();
   res.json(coupons);
 });
+
+app.delete('/coupons', async (req, res) => {
+  console.log('req.body', req.body)
+  const {couponcodediscard} = req.body
+    const {IsSuccess} = await deleteCoupon(couponcodediscard) 
+    if (IsSuccess) {
+      res.status(200).json({message: "Deleted coupon sucessfully"})
+    }
+    else{res.status(400).json({message: "Deleted not sucessfully"})}
+})
