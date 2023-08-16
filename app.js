@@ -156,3 +156,27 @@ app.delete('/coupons', async (req, res) => {
     }
     else{res.status(400).json({message: "Deleted not sucessfully"})}
 })
+
+
+app.post('/email', async (req, res) => {
+  console.log('req.body', req.body)
+  const {subject, message } = req.body
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    service: 'Gmail',
+    auth: {
+      // TODO: replace `user` and `pass` values from <https://forwardemail.net>
+      user: 'contactflightproject@gmail.com',
+      pass: 'ueaywfodsljqtsgs'
+    }
+  });
+  const info = await transporter.sendMail({
+    from: 'contactflightproject@gmail.com', // sender address
+    to: 'barsiboni@gmail.com',// list of receivers
+    subject: subject, // Subject line
+    text: message, // plain text body
+  });
+  res.status(200).json({message: "message has been sent"})
+  console.log('info', info)
+})
