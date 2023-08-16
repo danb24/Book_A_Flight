@@ -1,4 +1,4 @@
-v:root {
+:root {
 	--primary-color: #0004ff;
 	--secondary-color: #4b91c9;
   }
@@ -27,6 +27,16 @@ v:root {
 	text-align: center;
 	padding: 20px 0;
 	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  img{
+	background-image: url('../images/istockphoto-1194795394-170667a.jpg');
+	background-repeat: no-repeat;
+	float:right;
+	background-size: cover;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-right: 5px;
   }
   #header h1 {
 	font-size: 48px;
@@ -220,6 +230,8 @@ v:root {
   }
 
 #footer {
+	height: 50px;
+	margin-top: -50px;
 	text-align: center;
 	padding: 20px 0;
 	color: #ffffff;
@@ -242,7 +254,7 @@ div #h1-dis{
 .coupon-cube {
     display: inline-block;
     margin: 10px;
-    padding: 5px; /* Adjust padding */
+    padding: 5px; 
     border: 1px solid #ccc;
     width: 200px;
     height: 200px;
@@ -256,7 +268,7 @@ div #h1-dis{
     width: 200px;
     height: auto;
     perspective: 1000px;
-    background-color: #dfa9ea; 
+    background-color: #e66868; 
     border-radius: 8px; /* Add some border radius */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
     cursor: pointer; /* Change cursor on hover */
