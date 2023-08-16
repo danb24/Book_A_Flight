@@ -1,6 +1,7 @@
 const express = require('express')
 const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
+const nodemailer = require("nodemailer");
 const app = express()
 const port = 3000
 app.use(express.static('public')) 
