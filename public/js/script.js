@@ -215,7 +215,7 @@ async function createcoupons(event) {
         })
     const data = await respone.json();
     console.log('data', data)
-    if (data==="Inserted discount sucessfully") {document.getElementById('message').innerText=data.message}
+    if (data==="comment sent sucessfully =)") {document.getElementById('message').innerText=data.message}
     else {
         document.getElementById('message').innerText=data.message
     }
