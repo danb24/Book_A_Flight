@@ -194,8 +194,11 @@
   #body form input[type="text"],
   #body form input[type="date"],
   #body form input[type="number"],
+  #body form input[type="email"],
   #body form select,
-  #body form option {
+  #body form option,
+  #body form #password
+   {
 	width: 90%;
 	padding: 10px;
 	border: 1px solid #b6d8cf;
@@ -205,7 +208,9 @@
 	font-size: 16px;
 	margin-bottom: 15px;
   }
-
+  #body form #role {
+	width: 92.5%;
+  }
   #body form input[type="submit"] {
 	background: var(--primary-color);
 	border: none;
