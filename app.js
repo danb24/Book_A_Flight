@@ -123,7 +123,7 @@ app.post('/reviews', async (req, res) => {
   const {destinationR, description, rating, commenter } = req.body
     const {IsSuccess} = await insertReview(destinationR, description, rating, commenter) 
     if (IsSuccess) {
-      res.status(200).json({message: "Inserted sucessfully"})
+      res.status(200).json({message: "comment sent sucessfully =)"})
     }
     else{res.status(400).json({message: "Inserted not sucessfully"})}
 })
