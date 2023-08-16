@@ -286,3 +286,21 @@ async function deleteCoupons(event) {
         document.getElementById('message-discard').innerText=data.message
     }
 }
+
+//sendmail
+async function email (event){
+    event.preventDefault()
+    const subject = document.getElementById('subject-contact').value;
+    const message = document.getElementById('message-contact').value;
+    const newMail = {subject,message};
+    const response = await fetch('/email', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newMail)
+    })
+    const data = await response.json()
+    console.log(data)
+    document.getElementById('message-mail').innerText=data.message
+}
