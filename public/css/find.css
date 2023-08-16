@@ -1,11 +1,18 @@
 .h1style h1 {
+  background-image: url('../images/HD-wallpaper-summer-vacation-beach-vacation-sunshine-sky-sea-blue.jpg');
+  object-fit: cover;
+	background-repeat: no-repeat;
+  height: 400px;
+  width: 800px;
   text-align: center;
   font-size: 36px;
   font-weight: 600;
-  color: #222;
+  color: #000000;
   letter-spacing: 1px;
   text-transform: uppercase;
   position: relative;
+  margin-bottom: -100px;
+  margin-left: 50px;
 }
 
 .h1style h1:before, .h1style h1:after {
@@ -13,8 +20,7 @@
   position: absolute;
   left: 0;
   width: 30px;
-  height: 1px;
-  background-color: #0000c5;
+  height: 20px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -27,6 +33,7 @@
 #filterFlights {
   display: inline-block;
   padding: 10px 20px;
+  margin: 10px;
   background-color: #fffffffd;
   color: rgba(0, 0, 0, 0.867);
   font-weight: bold;
@@ -36,7 +43,7 @@
 }
 
 #filterFlights:hover {
-  background-color: #265ea3;
+  background-color: #0024f2;
 }
 
 
