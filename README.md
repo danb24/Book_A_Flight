@@ -22,5 +22,8 @@ The architecture we are using is based on 3 tiers, a client side, a application-
 The code is also built as a MVC, meaning it's divided to three parts with diffrent roles, the Model (which includes the mongoDB.js file) handles the connection to the database, having functions regarding the database and retrieving the relevant data, the Controller is on the app.js file, routing between the different paths and helping the connection between the Model and the Views. Lastly, the Views is everything regarding the public folder, as explained before (which are things that client should be exposed to).
 
 
+![<img width="945" alt="image" src="https://github.com/danb24/Book_A_Flight/assets/135611106/fab8d804-24a4-41d7-bfa3-2b7c839cd0d1">]
+
+
 
 
