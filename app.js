@@ -181,3 +181,14 @@ app.post('/email', async (req, res) => {
   res.status(200).json({message: "message has been sent"})
   console.log('info', info)
 })
+
+// routing stats
+app.get('/statistics', async (req, res) => {
+  const statistics = await getUniqueDestinationsWithAverageRatings()
+  if (statistics.length>0) {
+    res.status(200).json(statistics);
+  }
+  else {
+    res.status(400).json({message: "something went wrong..."});
+  }
+});
