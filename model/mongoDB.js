@@ -105,7 +105,7 @@ const client = new MongoClient(uri, { useUnifiedTopology: true });
 
 // manager querys ==>
 
-//  creating new user in the system
+// creating new user in the system
 const createUser = async (id, username, password, role, phone,
   first_name, last_name) => {
     await client.connect()
@@ -143,15 +143,14 @@ const deleteUser = async (username, id) => {
   const database = client.db('flight_project');
   const collection = database.collection('users');
 
-  // Delete the user based on the combination of username and id
   try {
     const result = await collection.deleteOne({ username: username, id: id });
     if (result.deletedCount === 1) {
       console.log('User deleted:', username);
-      return {result:result.deletedId, IsSuccess:true}; // User deleted successfully
+      return {result:result.deletedId, IsSuccess:true}; 
     } else {
       console.log('User not found:', username);
-      return true ; // User not found
+      return true ;
     }
   } catch (error) {
     console.error('Error deleting user:', error);
@@ -170,7 +169,6 @@ const insertFlight = async (flight_number, from, dest, date, price,
       const database = await client.db('flight_project');
       const collection = await database.collection('flights');
   
-      // Create a new flight document
       const newFlight = {
         flight_number: flight_number,
         from: from,
@@ -180,7 +178,6 @@ const insertFlight = async (flight_number, from, dest, date, price,
         company: company
       };
   
-      // Insert the new flight document
       const result = await collection.insertOne(newFlight);
       console.log('Inserted flight:', result.insertedId);
   
@@ -191,38 +188,7 @@ const insertFlight = async (flight_number, from, dest, date, price,
 
     }
   };
-
-// add new discaount
-const createCoupon = async (discount, couponcode, coupon_description) => {
-  try {
-    await client.connect();
-    const database = client.db('flight_project');
-    const collection = database.collection('coupons');
-
-    // Check if couponCode is already used
-    const existingCoupon = await collection.findOne({ couponcode: couponcode });
-    if (existingCoupon) {
-      console.error('Coupon code already exists');
-      return { IsSuccess: false };
-    }
-
-    // Create a new coupon document
-    const newCoupon = {
-      discount: discount,
-      couponcode: couponcode,
-      coupon_description: coupon_description
-    };
-
-    // Insert the new coupon document
-    const result = await collection.insertOne(newCoupon);
-    console.log('Coupon inserted successfully');
-    return { result: result.insertedId, IsSuccess: true };
-  } catch (error) {
-    console.error('Error inserting coupon:', error);
-    return { IsSuccess: false };
-  }
-};
-  // Reviews querys ==>
+// Reviews querys ==>
 
 // get All Reviews
 const getAllReviews = async () => {
@@ -287,11 +253,45 @@ const filterreviewsByCriteria = async (destination) => {
       await client.close();
       console.log('Database connection closed.');
     }
+  };
+
+//discaunts querys == >
+
+// add new discaount
+const createCoupon = async (discount, couponcode, coupon_description) => {
+  try {
+    await client.connect();
+    const database = client.db('flight_project');
+    const collection = database.collection('coupons');
+
+    // Check if couponCode is already used
+    const existingCoupon = await collection.findOne({ couponcode: couponcode });
+    if (existingCoupon) {
+      console.error('Coupon code already exists');
+      return { IsSuccess: false };
+    }
+
+    // Create a new coupon document
+    const newCoupon = {
+      discount: discount,
+      couponcode: couponcode,
+      coupon_description: coupon_description
+    };
+
+    // Insert the new coupon document
+    const result = await collection.insertOne(newCoupon);
+    console.log('Coupon inserted successfully');
+    return { result: result.insertedId, IsSuccess: true };
+  } catch (error) {
+    console.error('Error inserting coupon:', error);
+    return { IsSuccess: false };
   }
+};
 
-  const allcoupons = async () => {
+// see all avalibale coupons
+const allcoupons = async () => {
   const client = new MongoClient(uri,{useUnifiedTopology: true});
-
+  
   try{
       await client.connect();
       console.log('connect');
@@ -300,45 +300,42 @@ const filterreviewsByCriteria = async (destination) => {
       const coupons = await collection.find().toArray();
       console.log(coupons);
       return coupons;
-  } catch (error) {
+    } catch (error) {
       console.error('error');
       throw new Error ('faild');
-  } finally {
-      await client.close();
-  }
-};
-
-const deleteCoupon = async (couponcode) => {
-    try {
-      await client.connect();
-      const database = client.db('flight_project');
-      const collection = database.collection('coupons');
-  
-      // Find the coupon to delete
-      const couponToDelete = await collection.findOne({ couponcode: couponcode });
-      if (!couponToDelete) {
-        console.error('Coupon code not found');
-        return { IsSuccess: false };
-      }
-  
-      // Delete the coupon document
-      const deleteResult = await collection.deleteOne({ couponcode: couponcode });
-  
-      if (deleteResult.deletedCount === 1) {
-        console.log('Coupon deleted successfully');
-        return { IsSuccess: true };
-      } else {
-        console.error('Coupon deletion failed');
-        return { IsSuccess: false };
-      }
-    } catch (error) {
-      console.error('Error deleting coupon:', error);
-      return { IsSuccess: false };
     } finally {
-      // Close the client connection
       await client.close();
     }
-  };
+};
+
+// delete coupon 
+const deleteCoupon = async (couponcode) => {
+  try {
+    await client.connect();
+    const database = client.db('flight_project');
+    const collection = database.collection('coupons');
+    const couponToDelete = await collection.findOne({ couponcode: couponcode });
+    if (!couponToDelete) {
+      console.error('Coupon code not found');
+      return { IsSuccess: false };
+    }
+
+    // Delete the coupon document
+    const deleteResult = await collection.deleteOne({ couponcode: couponcode });
+    if (deleteResult.deletedCount === 1) {
+      console.log('Coupon deleted successfully');
+      return { IsSuccess: true };
+    } else {
+      console.error('Coupon deletion failed');
+      return { IsSuccess: false };
+    }
+  } catch (error) {
+    console.error('Error deleting coupon:', error);
+    return { IsSuccess: false };
+  } finally {
+    await client.close();
+  }
+};
 
 // to build the chart
 async function getUniqueDestinationsWithAverageRatings() {
@@ -374,8 +371,10 @@ async function getUniqueDestinationsWithAverageRatings() {
   }
 }
 
-// exporting querys to use on app.js
+
+
+// exporting querys to use in app.js
 module.exports={
-  run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria,createCoupon,allcoupons, deleteCoupon,
-  getUniqueDestinationsWithAverageRatings
+  run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria,
+  createCoupon,allcoupons,deleteCoupon,getUniqueDestinationsWithAverageRatings
 }
