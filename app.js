@@ -8,7 +8,7 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const {allflights,login,filterFlightsByCriteria,insertFlight, getAllReviews,filterreviewsByCriteria,insertReview,createUser,deleteUser,createCoupon,allcoupons, deleteCoupon}= require('./model/mongoDB')
+const {allflights,login,filterFlightsByCriteria,insertFlight, getAllReviews,filterreviewsByCriteria,insertReview,createUser,deleteUser,createCoupon,allcoupons,deleteCoupon,getUniqueDestinationsWithAverageRatings}= require('./model/mongoDB')
 const uri = "mongodb+srv://danuri240595:HSTYlseQRW5ddR42@cluster0.4glz4l5.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 
@@ -123,9 +123,9 @@ app.post('/reviews', async (req, res) => {
   const {destinationR, description, rating, commenter } = req.body
     const {IsSuccess} = await insertReview(destinationR, description, rating, commenter) 
     if (IsSuccess) {
-      res.status(200).json({message: "comment sent sucessfully =)"})
+      res.status(200).json({message: "comment sent sucessfully"})
     }
-    else{res.status(400).json({message: "Inserted not sucessfully"})}
+    else{res.status(400).json({message: "comment not sent sucessfully"})}
 })
 
 // routing to createCoupon
@@ -148,6 +148,7 @@ app.get('/coupons', async (req, res) => {
   res.json(coupons);
 });
 
+// delete coupon
 app.delete('/coupons', async (req, res) => {
   console.log('req.body', req.body)
   const {couponcodediscard} = req.body
@@ -156,9 +157,10 @@ app.delete('/coupons', async (req, res) => {
       res.status(200).json({message: "Deleted coupon sucessfully"})
     }
     else{res.status(400).json({message: "Deleted not sucessfully"})}
-})
+});
 
 
+// routing email
 app.post('/email', async (req, res) => {
   console.log('req.body', req.body)
   const {subject, message } = req.body
@@ -167,7 +169,7 @@ app.post('/email', async (req, res) => {
     port: 465,
     service: 'Gmail',
     auth: {
-      // TODO: replace `user` and `pass` values from <https://forwardemail.net>
+
       user: 'contactflightproject@gmail.com',
       pass: 'ueaywfodsljqtsgs'
     }
