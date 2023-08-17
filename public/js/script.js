@@ -304,3 +304,35 @@ async function email (event){
     console.log(data)
     document.getElementById('message-mail').innerText=data.message
 }
+
+// get chart
+async function getstatistics(event){
+    event.preventDefault
+    const response = await fetch ('/statistics')
+    console.log('response', response)
+    const data = await response.json();
+    console.log('data', data)
+    const labels=data.map((review) => review.destination)
+    const ratings=data.map((review) => review.averageRating)
+    console.log(ratings)
+    const ctx = document.getElementById('myChart');
+    new Chart(ctx, {
+       type: 'bar',
+     data: {
+       labels,
+       datasets: [{
+         label: '#Average of Destination',
+         data:ratings,
+
+         borderWidth: 1
+       }]
+     },
+     options: {
+       scales: {
+         y: {
+           beginAtZero: true
+         }
+       }
+     }
+   });
+}
