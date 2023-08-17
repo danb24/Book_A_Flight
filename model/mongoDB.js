@@ -340,8 +340,42 @@ const deleteCoupon = async (couponcode) => {
     }
   };
 
+// to build the chart
+async function getUniqueDestinationsWithAverageRatings() {
+  try {
+      await client.connect();
+      const db = client.db('flight_project');
+      const reviewsCollection = db.collection('reviews');
+      const pipeline = [
+          {
+              $group: {
+                  _id: { $toLower: "$destination" },
+                  averageRating: { $avg: { $toDouble: "$rating" } }
+              }
+          },
+          {
+              $project: {
+                  _id: 0,
+                  destination: { $toUpper: "$_id" },
+                  averageRating: 1
+              }
+          },
+          {
+              $sort: { destination: 1 }
+          }
+      ];
+      const result = await reviewsCollection.aggregate(pipeline).toArray();
+      console.log(result)
+      return result;
+  } catch (error) {
+      throw error;
+  } finally {
+      await client.close();
+  }
+}
 
 // exporting querys to use on app.js
 module.exports={
-  run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria,createCoupon,allcoupons, deleteCoupon
+  run,allflights,login,filterFlightsByCriteria, createUser, deleteUser, insertReview, getAllReviews, insertFlight,filterreviewsByCriteria,createCoupon,allcoupons, deleteCoupon,
+  getUniqueDestinationsWithAverageRatings
 }
