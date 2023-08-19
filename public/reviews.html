@@ -3,13 +3,14 @@
   <input type="text" id="destination" placeholder="destination">
   <button onclick="fetchreviews()" id="show_Reviews">show all reviews</button>
   <button onclick="filterreviews()" id="filter_reviews">filter reviews</button>
+  <button onclick="getstatistics((event))" id="show_chart">Show Statistics Chart</button>
   <table class='reviews-table'>
   <thead id="heads">
     <tr>
-      <th>destination</th>
-      <th>description</th>
-      <th>rating</th>
-      <th>commenter</th>
+      <th>Destination</th>
+      <th>Description</th>
+      <th>Rating</th>
+      <th>Commenter</th>
     </tr>
   </thead>
   <tbody id="reviewslist">
@@ -18,15 +19,16 @@
 </div>
 <div id="container">
 <div class="Rform">
+  <div id="Comment-pic"></div>
   <form onsubmit="addreview(event)" id="review-form">
-    <h1 id="form-h1">comment here:</h1>
-    <label for="destination">destination:</label>
+    <h1 id="form-h1">Comment Here:</h1>
+    <label for="destination">Destination:</label>
     <input type="text" name="destination" id="destinationR"  required pattern="[A-Z]">
     <br>
-    <label for="description">description:</label>
-    <input type="text" name="description" id="description" maxlength="35">
+    <label for="description">Description:</label>
+    <textarea type="text" name="description" id="description" cols="30" rows="10" maxlength="35"></textarea>
     <br>
-    <label for="rating">rating:</label>
+    <label for="rating">Rating:</label>
     <select name="rating" id="rating">
       <option value="1">1</option>
       <option value="2">2</option>
@@ -35,7 +37,7 @@
       <option value="5">5</option>
     </select>
     <br>
-    <label for="commenter">commenter:</label>
+    <label for="commenter">Commenter Name:</label>
     <input type="text" name="commenter" id="commenter" required>
     <br>
     <input type="submit" value="Submit" id="sbutton">
@@ -43,5 +45,4 @@
   <div id="message-review">  </div>
 </div>
 </div>
-<button onclick="getstatistics((event))" id="show_chart">ShowStatistics Chart</button>
 <canvas id="myChart" width="400" height="400"></canvas>
