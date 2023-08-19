@@ -26,7 +26,8 @@ The code is also built as a MVC, meaning it's divided to three parts with diffre
 
 !()[<img width="960" alt="image" src="https://github.com/danb24/Book_A_Flight/assets/135611106/103b6210-2836-4185-8830-cc59b1d364ff">]
 
-!(insert flight)
+!(insert flight)[<img width="960" alt="image" src="https://github.com/danb24/Book_A_Flight/assets/135611106/43030738-ac5b-452f-aeef-65c3a12b397d">]
+
 
 -->user
 !(main page-find.html)[<img width="960" alt="image" src="https://github.com/danb24/Book_A_Flight/assets/135611106/97b06396-09ca-4882-887f-4cfb4b566e74">]
