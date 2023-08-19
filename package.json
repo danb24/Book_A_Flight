@@ -5,12 +5,16 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon serve.js"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chart.js": "^4.3.3",
     "express": "^4.18.2",
-    "nodemon": "^3.0.1"
+    "mongodb": "^5.7.0",
+    "nodemailer": "^6.9.4",
+    "nodemon": "^3.0.1",
+    "prompt": "^1.3.0"
   }
 }
