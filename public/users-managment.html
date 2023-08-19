@@ -1,46 +1,49 @@
 <div class="add-user">
-    <h2>ADD USER</h2>
+    <h2>ADD USER:</h2>
     <form onsubmit="adduser(event)">
         <label for="id">ID:</label>
-        <input type="text" name="id" id="id">
+        <input type="text" name="id" id="id" maxlength="9" minlength="9" required>
         <br>
-        <label for="username">username:</label>
-        <input type="text" name="username" id="username">
+        <label for="username">userName:</label>
+        <input type="text" name="username" id="username" required>
         <br>
         <label for="password">password:</label>
-        <input type="text" name="password" id="password">
+        <input type="password" name="password" id="password" required>
         <br>
         <label for="role">role:</label>
-        <input type="text" name="role" id="role">
+        <select name="role" id="role" required>
+            <option value="" disabled selected>Select a role:</option>
+            <option value="manager">manager</option>
+            <option value="customer">customer</option>
+        </select>
         <br>
         <label for="phone">phone:</label>
-        <input type="text" name="phone" id="phone">
+        <input type="number" name="phone" id="phone" min="0" required>
         <br>
         <label for="Email">Email:</label>
-        <input type="text" name="Email" id="Email">
+        <input type="email" name="Email" id="Email" required>
         <br>
         <label for="first_name">first name:</label>
-        <input type="text" name="first_name" id="first_name">
+        <input type="text" name="first_name" id="first_name" required>
         <br>
         <label for="last_name">last name:</label>
-        <input type="text" name="last_name" id="last_name">
+        <input type="text" name="last_name" id="last_name" required>
         <br>
         <input type="submit" value="Submit"><br>
     </form>
-    <div id="message">
-
-    </div>
 </div>
-
 <div class="delete-user">
-    <h2>delete user</h2>
+    <h2>DELETE USER:</h2>
     <form onsubmit="deleteuser(event)">
         <label for="username">UserName:</label>
-        <input type="text" name="username" id="username-delete">
+        <input type="text" name="username" id="username-delete" required>
         <br>
         <label for="id">ID:</label>
-        <input type="text" name="id" id="id-delete">
+        <input type="text" name="id" id="id-delete" required>
         <br>
         <input type="submit" value="Submit"><br>
     </form>
+</div>
+<div id="message">
+
 </div>
