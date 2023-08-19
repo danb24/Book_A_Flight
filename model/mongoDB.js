@@ -366,9 +366,7 @@ async function getUniqueDestinationsWithAverageRatings() {
       return result;
   } catch (error) {
       throw error;
-  } finally {
-      await client.close();
-  }
+  } 
 }
 
 
