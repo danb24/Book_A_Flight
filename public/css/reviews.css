@@ -23,7 +23,8 @@
 
   }
   .Rform #form-h1{
-    color: rgb(0, 60, 255);
+    color: rgb(255, 255, 255);
+    font-family: cursive;
   }
   .Rform #destinationR,
   .Rform #commenter {
@@ -42,10 +43,10 @@
     width: 96.5%;
   }
   #description{
-    height: 15px;
-    width: 235px;
-    padding-top: 10px;
-    border-radius: 10px;
+    height: 50px;
+    width: 280px;
+    padding-top: 6px;
+    border-radius: 6px;
   }
   
   #sbutton {
@@ -57,10 +58,6 @@
     border: none;
     outline: none;
   }
-  #form-h1{
-    font-size:30px; font-weight:300; color:#000000; letter-spacing:1px;
-    display:block;
-  }
 #destination{
     width:fit-content;
     border-radius: 10px;
@@ -68,7 +65,8 @@
 }
 
 #show_Reviews,
-#filter_reviews {
+#filter_reviews,
+#show_chart {
   background-color: #fff;
   color: #2e76eafd;
   font-weight: bold;
@@ -81,7 +79,8 @@
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 #show_Reviews:hover,
-#filter_reviews:hover {
+#filter_reviews:hover,
+#show_chart:hover {
   background-color: #2e76eafd;
   color: #fff;
 }
