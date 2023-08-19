@@ -24,3 +24,8 @@ The code is also built as a MVC, meaning it's divided to three parts with diffre
 --> manager
 !(main page)[<img width="960" alt="image" src="https://github.com/danb24/Book_A_Flight/assets/135611106/812879a3-d859-43e6-9284-be7001c06d1e">
 
+!()[<img width="960" alt="image" src="https://github.com/danb24/Book_A_Flight/assets/135611106/103b6210-2836-4185-8830-cc59b1d364ff">]
+
+!(insert flight)
+
+-->user
