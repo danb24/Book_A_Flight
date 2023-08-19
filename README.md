@@ -29,3 +29,12 @@ The code is also built as a MVC, meaning it's divided to three parts with diffre
 !(insert flight)
 
 -->user
+!(main page-find.html)[<img width="960" alt="image" src="https://github.com/danb24/Book_A_Flight/assets/135611106/97b06396-09ca-4882-887f-4cfb4b566e74">]
+
+!(coupons)[<img width="960" alt="image" src="https://github.com/danb24/Book_A_Flight/assets/135611106/7eb21286-e125-4d67-bd88-68f80c37f889">]
+
+!(contact)[<img width="960" alt="image" src="https://github.com/danb24/Book_A_Flight/assets/135611106/a78b0795-f37e-4bca-a1b2-d204d80272c5">]
+
+!(reviews)[<img width="960" alt="image" src="https://github.com/danb24/Book_A_Flight/assets/135611106/e14e004c-c6f7-44bb-aabb-16966ac3377d">]
+
+
