@@ -60,7 +60,7 @@ app.post('/login', async (req, res) => {
     res.redirect('/client.html');
   } else {
     // The user does not exist, so show an error message.
-    res.send('<h1>Error</h1><p>The username or password is incorrect.</p>');
+    res.send('<script>alert("Try again incorrect Username or Password"); window.location.href = "/index.html";</script>');
   }
 });
 
