@@ -4,7 +4,9 @@
   }
   
   body {
-	background: linear-gradient(to bottom, #bdd7e6, #82a8d9);
+	background-image: url('../images/login_back.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
 	color: #444;
 	font-family: 'latoregular', sans-serif;
 	font-size: 16px;
@@ -14,6 +16,7 @@
   
   a {
 	color: var(--primary-color);
+	font-family: cursive;
 	text-decoration: none;
 	transition: color 0.3s ease;
   }
@@ -226,13 +229,15 @@
 	background: var(--secondary-color);
   }
   
-  #message {
+  #message,
+  #message-discard {
 	text-align: center;
 	margin-top: 20px;
 	font-size: 18px;
 	color:red;
 	font-weight: bold;
   }
+
 #message-review{
 	text-align: center;
 	margin-top: 20px;
@@ -281,7 +286,7 @@ div #h1-dis{
     height: auto;
     perspective: 1000px;
     background-color: #e66868; 
-    border-radius: 8px; /* Add some border radius */
+    border-radius: 8px; 
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
     cursor: pointer; /* Change cursor on hover */
     transition: transform 0.5s, box-shadow 0.3s; /* Include box shadow in transition */
@@ -304,3 +309,66 @@ div #h1-dis{
     transform: rotateX(10deg) rotateY(10deg);
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
 }
+
+#body .contact-form {
+	width:40%;
+    height: 50%;
+    background:#9dcff1b3;
+    border-radius:8px;
+    box-shadow:0 0 40px -10px #0051ff99;
+    margin: auto;
+    padding:20px 30px;
+    max-width:calc(100vw - 40px);
+    box-sizing:border-box;
+    font-family:'Montserrat',sans-serif;
+    position:relative
+  }
+  #body .contact-form h2{
+	background-image: url('../images/contact.jpg');
+	height: 166px;
+	width: 300px;
+	background-repeat: no-repeat;
+	margin:10px 0;
+    padding-bottom:10px;
+  }
+  
+  #body .contact-form label {
+	font-family: cursive;
+	content:attr(type);
+    display:block;
+    margin:28px 0 0;
+    font-size:18px;
+    color:#000000
+  }
+  
+#body .contact-form input[type="text"] {
+	width:100%;
+    padding:10px;
+    box-sizing:border-box;
+    background:none;
+    outline:none;
+    resize:none;
+    border:0;
+    font-family:'Montserrat',sans-serif;
+    transition:all .3s;
+    border-bottom:2px solid #000000;
+}
+#body .contact-form input:focus{
+    border-bottom:2px solid #000000
+}
+  
+#body .contact-form input[type="submit"] {
+    float:left;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-family:'Montserrat',sans-serif;
+    background:#0101ff;
+	color:#ffffff;
+    cursor:pointer;
+    transition:all .3s;
+	border-radius: 6px;
+  }
+  
+#body .contact-form input[type="submit"]:hover {
+	background: #4b91c9;
+  }
