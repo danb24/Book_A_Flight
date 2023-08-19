@@ -177,6 +177,7 @@
   }
 
 #body form {
+	font-family: cursive;
 	margin: 25px auto;
 	overflow: hidden;
 	width: 90%;
