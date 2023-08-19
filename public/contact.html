@@ -1,16 +1,14 @@
-
 <div id="body">
-	<h2>Contact</h2>
-	<form onsubmit="email(event)"'>
-		<h3>Inquiries</h3>
+	<form onsubmit="email(event)" class="contact-form">
+        <h2></h2>
 		<label for="subject">
-			<span>Subject</span>
+			<span>Subject:</span>
 			<input type="text" id="subject-contact">
 		</label>
 		<label for="message">
-			<span>Message</span>
-			<textarea name="message" id="message-contact" cols="30" rows="10"></textarea>
+			<span>Message:</span>
 		</label>
+        <textarea name="message" id="message-contact" cols="30" rows="10" maxlength="100"></textarea><br>
 		<input type="submit" id="send" value="Send">
 	</form>
 	<div id="message-mail"></div>
