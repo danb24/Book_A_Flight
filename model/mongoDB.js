@@ -162,13 +162,31 @@ const deleteUser = async (username, id) => {
 const insertFlight = async (flight_number, from, dest, date, price,
   company) => {
     try {
-
       console.log('Connected to the database');
-      console.log(flight_number, from, dest, date, price, company)
-      await client.connect()
+      console.log(flight_number, from, dest, date, price, company);
+      await client.connect();
       const database = await client.db('flight_project');
       const collection = await database.collection('flights');
   
+      // Check if the date is in the past
+      const currentDate = new Date();
+      const flightDate = new Date(date);
+  
+      if (flightDate < currentDate) {
+        console.error('Flight date the past');
+        return { IsSuccess: false };
+      }
+  
+      // Check if the flight number is already in the database
+      const existingFlight = await collection.findOne({ flight_number:
+  flight_number });
+  
+      if (existingFlight) {
+        console.error('Flight number already exists');
+        return { IsSuccess: false };
+      }
+  
+      // Create a new flight document
       const newFlight = {
         flight_number: flight_number,
         from: from,
@@ -178,14 +196,14 @@ const insertFlight = async (flight_number, from, dest, date, price,
         company: company
       };
   
+      // Insert the new flight document
       const result = await collection.insertOne(newFlight);
       console.log('Inserted flight:', result.insertedId);
   
-      return {result:result.insertedId, IsSuccess:true};
+      return { result: result.insertedId, IsSuccess: true };
     } catch (error) {
       console.error('Error:', error);
-      return {IsSuccess:false}
-
+      return { IsSuccess: false };
     }
   };
 // Reviews querys ==>
